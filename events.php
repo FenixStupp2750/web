@@ -28,7 +28,11 @@ $result = mysqli_query($conn, $query);
                     <?php while ($row = mysqli_fetch_assoc($result)): ?>
                         <div class="event-card">
                             <h3><?= htmlspecialchars($row['Название']) ?></h3>
-                            <p class="event-date">📅 <?= htmlspecialchars($row['ДатаПроведения']) ?></p>
+                            <?php
+                            // Преобразование даты в формат "день-месяц-год"
+                            $formattedDate = date('d-m-Y', strtotime($row['ДатаПроведения']));
+                            ?>
+                            <p class="event-date">📅 <?= htmlspecialchars($formattedDate) ?></p>
 
                             <!-- Форма для добавления в корзину (только для авторизованных пользователей) -->
                             <?php if (isset($_SESSION['user_id'])): ?>

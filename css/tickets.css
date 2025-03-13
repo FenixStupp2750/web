@@ -1,0 +1,55 @@
+/* Стили для билетов */
+.ticket {
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    min-height: 150px; /* Минимальная высота для билета */
+}
+
+.ticket::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Затемнение фона для лучшей читаемости текста */
+    z-index: 1;
+}
+
+.ticket h4, .ticket p {
+    position: relative;
+    z-index: 2;
+    margin: 0;
+}
+
+.ticket h4 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.ticket p {
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+/* Фоновые изображения для мероприятий с кодами 2, 4, 6 */
+.ticket[data-event="2"] {
+    background-image: url('../img/event2.jpg');
+}
+
+.ticket[data-event="4"] {
+    background-image: url('../img/event4.jpg');
+}
+
+.ticket[data-event="6"] {
+    background-image: url('../img/event6.jpg');
+}
+
+/* Добавьте больше стилей для других мероприятий по мере необходимости */

@@ -18,7 +18,7 @@ $user_result = $stmt->get_result();
 $user_data = $user_result->fetch_assoc();
 
 // Получение билетов пользователя
-$tickets_query = "SELECT экспозиции.*, мероприятия.Название AS мероприятие, экспонаты.Название AS экспонат 
+$tickets_query = "SELECT экспозиции.*, мероприятия.Название AS мероприятие, мероприятия.ДатаПроведения, экспонаты.Название AS экспонат 
                   FROM экспозиции 
                   JOIN мероприятия ON экспозиции.КодМероприятия = мероприятия.КодМероприятия 
                   JOIN экспонаты ON экспозиции.КодЭкспоната = экспонаты.КодЭкспоната 
@@ -36,6 +36,7 @@ $tickets_result = $stmt->get_result();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Личный кабинет</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/tickets.css"> <!-- Подключение стилей для билетов -->
 </head>
 <body>
     <div class="container">
@@ -61,8 +62,13 @@ $tickets_result = $stmt->get_result();
                     <h3>Ваши билеты</h3>
                     <?php if ($tickets_result->num_rows > 0): ?>
                         <?php while ($row = mysqli_fetch_assoc($tickets_result)): ?>
-                            <div class="ticket">
+                            <?php
+                            // Форматирование даты
+                            $formatted_date = date('d-m-Y', strtotime($row['ДатаПроведения']));
+                            ?>
+                            <div class="ticket" data-event="<?= $row['КодМероприятия'] ?>">
                                 <h4><?= htmlspecialchars($row['мероприятие']) ?></h4>
+                                <p><strong>Дата:</strong> <?= htmlspecialchars($formatted_date) ?></p>
                                 <p><strong>Экспонат:</strong> <?= htmlspecialchars($row['экспонат']) ?></p>
                             </div>
                         <?php endwhile; ?>
